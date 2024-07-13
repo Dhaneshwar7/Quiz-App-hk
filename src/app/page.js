@@ -26,22 +26,33 @@ const quizQuestions = [
 
 export default function Home() {
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+	const [queArray, setqueArray] = useState(quizQuestions.length);
+	const [count, setCount] = useState({ currentQuesNum: 1, remainingQues: 0 });
 	const [score, setScore] = useState(0);
 	const [showResult, setShowResult] = useState(false);
-	const [timeLeft, setTimeLeft] = useState(120); // Initialize with 60 seconds or desired time
+	const [timeLeft, setTimeLeft] = useState(10); // Initialize with 60 seconds or desired time
 	const [selectedOptions, setSelectedOptions] = useState(
 		Array(quizQuestions.length).fill(null)
 	);
-
-	console.log(selectedOptions);
-	console.log(score);
+	// console.log(queArray);
+	// console.log(selectedOptions);
+	// console.log(score);
+console.log(count);
+	// console.log(selectedOptions[currentQuestionIndex] !== true);
+	// console.log(selectedOptions[currentQuestionIndex] === true);
 	useEffect(() => {
 		if (timeLeft === 0) {
 			setShowResult(true);
+			for (let i = 0; i < quizQuestions.length; i++) {
+				if (selectedOptions[i] === quizQuestions[i].correctAnswer) {
+					setScore(prevscore => prevscore + 1);
+				}
+			}
 		}
 	}, [timeLeft]);
 
 	const handleAnswer = isCorrect => {
+		console.log(selectedOptions);
 		if (isCorrect && selectedOptions[currentQuestionIndex] !== true) {
 			setScore(prevScore => prevScore + 1);
 		} else if (!isCorrect && selectedOptions[currentQuestionIndex] === true) {
@@ -51,6 +62,11 @@ export default function Home() {
 
 	const goToNextQuestion = () => {
 		const nextQuestionIndex = currentQuestionIndex + 1;
+		setCount(prevCount => ({
+			...prevCount,
+			currentQuesNum: prevCount.currentQuesNum + 1,
+			remainingQues: prevCount.remainingQues,
+		}));
 		if (nextQuestionIndex < quizQuestions.length) {
 			setCurrentQuestionIndex(nextQuestionIndex);
 		} else {
@@ -58,7 +74,22 @@ export default function Home() {
 		}
 	};
 
+	const submitQuiz = () => {
+		const val = selectedOptions.filter(selopt => selopt === null);
+		let rval = val.length;
+	setCount(prevcount => ({
+		...prevcount,
+		remainingQues: rval,
+	}));
+	};
 	const goToPreviousQuestion = () => {
+		if (count.currentQuesNum !== 1) {
+			setCount(prevCount => ({
+				...prevCount,
+				currentQuesNum: prevCount.currentQuesNum - 1,
+				remainingQues: prevCount.remainingQues,
+			}));
+		}
 		const previousQuestionIndex = currentQuestionIndex - 1;
 		if (previousQuestionIndex >= 0) {
 			setCurrentQuestionIndex(previousQuestionIndex);
@@ -86,8 +117,11 @@ export default function Home() {
 						/>
 					) : (
 						<Question
+							count={count}
+							totalquestion={queArray}
 							question={quizQuestions[currentQuestionIndex]}
 							handleAnswer={handleAnswer}
+							submitQuiz={submitQuiz}
 							selectedOption={selectedOptions[currentQuestionIndex]}
 							setSelectedOption={setSelectedOption}
 							goToNextQuestion={goToNextQuestion}

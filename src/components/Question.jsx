@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 const Question = ({
 	question,
-	handleAnswer,
+	count,
+	totalquestion,
+	submitQuiz,
 	selectedOption,
 	setSelectedOption,
 	goToNextQuestion,
@@ -10,8 +12,8 @@ const Question = ({
 }) => {
 	const handleOptionClick = option => {
 		setSelectedOption(option);
-		handleAnswer(option === question.correctAnswer);
 	};
+    console.log(` ya i ${count.currentQuesNum}`);
 
 	return (
 		<div className="question">
@@ -28,10 +30,19 @@ const Question = ({
 					</li>
 				))}
 			</ul>
+			<p>
+				{count.currentQuesNum} out of {totalquestion}
+			</p>
+
 			<div className="navigation-buttons">
 				<button onClick={goToPreviousQuestion}>Previous Question</button>
-				<button onClick={goToNextQuestion}>Next Question</button>
+				{count.currentQuesNum === totalquestion ? (
+					<button onClick={submitQuiz}>Submit the Quiz</button>
+				) : (
+					<button onClick={goToNextQuestion}>Next Question</button>
+				)}
 			</div>
+			<p>YOUr REmaining question : {count.remainingQues}</p>
 		</div>
 	);
 };

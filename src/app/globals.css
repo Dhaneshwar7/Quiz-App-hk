@@ -44,20 +44,20 @@ ul {
   border-radius: 4px;
   cursor: pointer;
   background-color:#1b4b7cac;
-  transition: background-color 0.3s;
+  transition: background-color 0.1s;
 }
 
-/* .option:hover {
-  background-color: #f0f0f0;
-} */
+.option:hover {
+  background-color: #8ca48d;
+}
 
 .correct {
   color: black;
-  background-color: #83ab84;
+  background-color: #7eb680;
 }
 
 .incorrect {
- background-color: #c8e6c9;
+ background-color: #d54444;
 }
 
 
@@ -71,6 +71,6 @@ button {
 }
 
 button:disabled {
-  background-color: #ddd;
+  /* background-color: #ddd; */
   cursor: not-allowed;
 }

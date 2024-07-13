@@ -30,14 +30,15 @@ export default function Home() {
 	const [count, setCount] = useState({ currentQuesNum: 1, remainingQues: 0 });
 	const [score, setScore] = useState(0);
 	const [showResult, setShowResult] = useState(false);
-	const [timeLeft, setTimeLeft] = useState(10); // Initialize with 60 seconds or desired time
+	const [timeLeft, setTimeLeft] = useState(10); 
 	const [selectedOptions, setSelectedOptions] = useState(
 		Array(quizQuestions.length).fill(null)
 	);
-  	const [timerId, setTimerId] = useState(null);
+	const [timerId, setTimerId] = useState(null);
+	const [reviewTestFeedback, setReviewTestFeedback] = useState(false);
 	// console.log(queArray);
 	// console.log(selectedOptions);
-	// console.log(score);
+	console.log(score);
 	console.log(count);
 	// console.log(selectedOptions[currentQuestionIndex] !== true);
 	// console.log(selectedOptions[currentQuestionIndex] === true);
@@ -87,7 +88,7 @@ export default function Home() {
 				}
 			}
 			setShowResult(true);
-      clearInterval(timerId); 
+			clearInterval(timerId);
 		}
 		setCount(prevcount => ({
 			...prevcount,
@@ -107,6 +108,10 @@ export default function Home() {
 			setCurrentQuestionIndex(previousQuestionIndex);
 		}
 	};
+	const reviewTest = () => {
+		setReviewTestFeedback(true);
+		setShowResult(false);
+	};
 
 	const setSelectedOption = option => {
 		const updatedSelectedOptions = [...selectedOptions];
@@ -120,16 +125,27 @@ export default function Home() {
 				<Navbar />
 				<div className="quiz-app">
 					<h1>Awesome Quiz Application</h1>
-					<Timer
-						timeLeft={timeLeft}
-						setTimeLeft={setTimeLeft}
-						setTimerId={setTimerId}
-					/>
+					<div
+						style={{
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'space-between',
+						}}
+					>
+						{reviewTestFeedback ? <p> Your Result Score: - {score}</p> : <p></p>}
+
+						<Timer
+							timeLeft={timeLeft}
+							setTimeLeft={setTimeLeft}
+							setTimerId={setTimerId}
+						/>
+					</div>
 					{showResult ? (
 						<Result
 							score={score}
 							totalQuestions={quizQuestions.length}
 							message={timeLeft === 0 ? "Time's Up!" : null}
+							reviewTest={reviewTest}
 						/>
 					) : (
 						<Question
@@ -142,6 +158,7 @@ export default function Home() {
 							setSelectedOption={setSelectedOption}
 							goToNextQuestion={goToNextQuestion}
 							goToPreviousQuestion={goToPreviousQuestion}
+							reviewTestFeedback={reviewTestFeedback}
 						/>
 					)}
 				</div>

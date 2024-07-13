@@ -9,11 +9,13 @@ const Question = ({
 	setSelectedOption,
 	goToNextQuestion,
 	goToPreviousQuestion,
+	reviewTestFeedback,
 }) => {
 	const handleOptionClick = option => {
 		setSelectedOption(option);
 	};
 	console.log(` ya i ${count.currentQuesNum}`);
+	console.log(reviewTestFeedback);
 
 	return (
 		<div className="question">
@@ -22,8 +24,19 @@ const Question = ({
 				{question.options.map((option, index) => (
 					<li key={index}>
 						<button
-							className={`option ${selectedOption === option ? 'correct' : ''}`}
+							className={`option ${
+								selectedOption === option ? 'correct' : ''
+							} ${
+								reviewTestFeedback
+									? option === question.correctAnswer
+										? 'correct'
+										: selectedOption === option
+										? 'incorrect'
+										: ''
+									: ''
+							}`}
 							onClick={() => handleOptionClick(option)}
+							disabled={reviewTestFeedback}
 						>
 							{option}
 						</button>
@@ -37,7 +50,13 @@ const Question = ({
 			<div className="navigation-buttons">
 				<button onClick={goToPreviousQuestion}>Previous Question</button>
 				{count.currentQuesNum === totalquestion ? (
-					<button onClick={submitQuiz}>Submit the Quiz</button>
+					reviewTestFeedback ? (
+						<button onClick={() => window.location.reload()}>
+							Restart Quiz
+						</button>
+					) : (
+						<button onClick={submitQuiz}>Submit the Quiz</button>
+					)
 				) : (
 					<button onClick={goToNextQuestion}>Next Question</button>
 				)}

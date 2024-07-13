@@ -34,22 +34,25 @@ export default function Home() {
 	const [selectedOptions, setSelectedOptions] = useState(
 		Array(quizQuestions.length).fill(null)
 	);
+  	const [timerId, setTimerId] = useState(null);
 	// console.log(queArray);
 	// console.log(selectedOptions);
 	// console.log(score);
-console.log(count);
+	console.log(count);
 	// console.log(selectedOptions[currentQuestionIndex] !== true);
 	// console.log(selectedOptions[currentQuestionIndex] === true);
 	useEffect(() => {
 		if (timeLeft === 0) {
-			setShowResult(true);
 			for (let i = 0; i < quizQuestions.length; i++) {
 				if (selectedOptions[i] === quizQuestions[i].correctAnswer) {
 					setScore(prevscore => prevscore + 1);
 				}
 			}
+			setShowResult(true);
 		}
 	}, [timeLeft]);
+
+	function calculteScores() {}
 
 	const handleAnswer = isCorrect => {
 		console.log(selectedOptions);
@@ -77,10 +80,19 @@ console.log(count);
 	const submitQuiz = () => {
 		const val = selectedOptions.filter(selopt => selopt === null);
 		let rval = val.length;
-	setCount(prevcount => ({
-		...prevcount,
-		remainingQues: rval,
-	}));
+		if (val.length === 0) {
+			for (let i = 0; i < quizQuestions.length; i++) {
+				if (selectedOptions[i] === quizQuestions[i].correctAnswer) {
+					setScore(prevscore => prevscore + 1);
+				}
+			}
+			setShowResult(true);
+      clearInterval(timerId); 
+		}
+		setCount(prevcount => ({
+			...prevcount,
+			remainingQues: rval,
+		}));
 	};
 	const goToPreviousQuestion = () => {
 		if (count.currentQuesNum !== 1) {
@@ -108,7 +120,11 @@ console.log(count);
 				<Navbar />
 				<div className="quiz-app">
 					<h1>Awesome Quiz Application</h1>
-					<Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} />
+					<Timer
+						timeLeft={timeLeft}
+						setTimeLeft={setTimeLeft}
+						setTimerId={setTimerId}
+					/>
 					{showResult ? (
 						<Result
 							score={score}

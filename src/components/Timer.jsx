@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 
-const Timer = ({ timeLeft, setTimeLeft }) => {
+const Timer = ({ timeLeft, setTimeLeft, setTimerId }) => {
 	useEffect(() => {
 		const timer = setInterval(() => {
 			setTimeLeft(prev => (prev > 0 ? prev - 1 : 0));
 		}, 1000);
 
+		setTimerId(timer);
+
 		return () => clearInterval(timer);
-	}, [setTimeLeft]);
+	}, [setTimeLeft, setTimerId]);
 
 	return (
 		<div className="timer">

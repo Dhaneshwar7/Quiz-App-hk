@@ -13,7 +13,7 @@ const Question = ({
 	const handleOptionClick = option => {
 		setSelectedOption(option);
 	};
-    console.log(` ya i ${count.currentQuesNum}`);
+	console.log(` ya i ${count.currentQuesNum}`);
 
 	return (
 		<div className="question">

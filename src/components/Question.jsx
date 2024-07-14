@@ -52,7 +52,7 @@ const Question = () => {
 							Restart Quiz
 						</button>
 					) : (
-						<button onClick={()=>dispatch({type:'SUBMIT_QUIZ'})}>Submit the Quiz</button>
+						<button onClick={()=>dispatch({type:'SUBMIT_QUIZ'})}>Submit Quiz</button>
 					)
 				) : (
 					<button onClick={() => dispatch({ type: 'GO_TO_NEXT_QUESTION' })}>

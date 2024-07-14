@@ -76,7 +76,7 @@ const quizReducer = (state, action) => {
 			);
 			let selectOptLength = valueNulls.length;
 			let newScore = state.score;
-			if (selectOptLength === 0) {
+			if (selectOptLength === 0 ||state.timeLeft===0) {
 				for (let i = 0; i < state.quizQuestions.length; i++) {
 					if (
 						state.selectedOptions[i] === state.quizQuestions[i].correctAnswer
@@ -88,7 +88,8 @@ const quizReducer = (state, action) => {
 			return {
 				...state,
 				score: newScore,
-				showResult: selectOptLength === 0 ? true : false,
+				showResult:
+					selectOptLength === 0 ? true : state.timeLeft === 0 ? true : false,
 				count: {
 					...state.count,
 					remainingQues: selectOptLength,
@@ -109,6 +110,7 @@ export const QuizProvider = ({ children }) => {
 	useEffect(() => {
 		if (state.timeLeft === 0) {
 			dispatch({ type: 'SUBMIT_QUIZ' });
+			console.log('hooo gya zeero');
 		}
 	}, [state.timeLeft]);
 
@@ -122,6 +124,8 @@ export const QuizProvider = ({ children }) => {
 		if (state.showResult) {
 			// dispatch({type:'SET_TIMER_ID', timer})
 			clearInterval(timer);
+		}
+		if (state.timeLeft === 0) {
 		}
 
 		return () => clearInterval(timer);

@@ -5,6 +5,7 @@ import Result from '@/components/Result';
 import Question from '@/components/Question';
 import { useQuiz } from '@/utils/QuizAppContext';
 import { useEffect, useState } from 'react';
+import Footer from '@/components/Footer';
 
 export default function Home() {
 	const [mount, setMount] = useState(false);
@@ -22,7 +23,7 @@ export default function Home() {
 	if (!mount) return null;
 	return (
 		<>
-			<div className="min-h-screen">
+			<div className="min-h-screen w-screen relative">
 				<Navbar />
 				<div className="max-w-3xl my-3 mx-auto p-7 rounded-lg bg-slate-100 border border-[#ddddddd] drop-shadow-box">
 					<div className="Full Quiz Application">
@@ -54,6 +55,10 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
+				<div className='bg-slate-600 absolute bottom-0 w-full'>
+					<Footer/>
+				</div>
+
 			</div>
 		</>
 	);

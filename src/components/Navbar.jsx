@@ -7,8 +7,12 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Chip } from '@mui/material';
+import { useQuiz } from '@/utils/QuizAppContext';
 
 export default function Navbar() {
+	const { state } = useQuiz();
+	const { timeLeft } = state;
+
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static">
@@ -17,10 +21,10 @@ export default function Navbar() {
 						Quiz App
 					</Typography>
 					<Chip
-						label={`Time left || ${'3:46'}`}
+						label={`Time left || ${timeLeft}`}
 						sx={{ color: '#fff', bgcolor: 'black' }}
 					/>
-					<Button color="inherit">Login</Button>
+					{/* <Button color="inherit">Login</Button> */}
 				</Toolbar>
 			</AppBar>
 		</Box>

@@ -3,27 +3,7 @@ import Navbar from '@/components/Navbar';
 import Timer from '@/components/Timer';
 import Result from '@/components/Result';
 import Question from '@/components/Question';
-import { useState, useEffect } from 'react';
 import { useQuiz } from '@/utils/QuizAppContext';
-
-const quizQuestions = [
-	{
-		question: 'What is the capital of France?',
-		options: ['London', 'Berlin', 'Paris', 'Madrid'],
-		correctAnswer: 'Paris',
-	},
-	{
-		question: 'What is the largest planet in our solar system?',
-		options: ['Mars', 'Venus', 'Jupiter', 'Saturn'],
-		correctAnswer: 'Jupiter',
-	},
-	{
-		question:
-			'Which programming language is commonly used for web development?',
-		options: ['Python', 'Java', 'JavaScript', 'C++'],
-		correctAnswer: 'JavaScript',
-	},
-];
 
 export default function Home() {
 	const { state } = useQuiz();
@@ -33,30 +13,35 @@ export default function Home() {
 
 	return (
 		<>
-			<div style={{ backgroundColor: '#F6F7F8', height: '100vh' }}>
+			<div className='min-h-screen'>
 				<Navbar />
-				<div className="quiz-app">
-					<h1>Awesome Quiz Application</h1>
-					<div
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'space-between',
-						}}
-					>
-						{reviewTestFeedback ? <p> Your Result Score: {score}</p> : <p></p>}
-
+				<div className="max-w-3xl my-3 mx-auto p-7 rounded-lg bg-slate-100 border border-[#ddddddd] drop-shadow-box">
+					<div className="Heading">
+						<h1 className="text-3xl py-2 font-semibold">
+							Quiz Web Application
+						</h1>
+					</div>
+					<div className="Score Timer flex items-center justify-between">
+						<div>
+							{reviewTestFeedback ? (
+								<p className="font-medium">Your Result Score: {score}</p>
+							) : (
+								<p></p>
+							)}
+						</div>
 						<Timer />
 					</div>
-					{showResult ? (
-						<Result
-							score={score}
-							totalQuestions={quizQuestions.length}
-							message={timeLeft === 0 ? "Time's Up!" : null}
-						/>
-					) : (
-						<Question />
-					)}
+					<div>
+						{showResult ? (
+							<Result
+								score={score}
+								totalQuestions={quizQuestions.length}
+								message={timeLeft === 0 ? "Time's Up!" : null}
+							/>
+						) : (
+							<Question />
+						)}
+					</div>
 				</div>
 			</div>
 		</>

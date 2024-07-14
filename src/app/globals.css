@@ -21,14 +21,14 @@ h1 {
   margin-bottom: 20px;
 }
 
-.timer {
+/* .timer {
   text-align: right;
   font-size: 1.2em;
-}
+} */
 
-.question {
+/* .question {
   margin-bottom: 20px;
-}
+} */
 
 ul {
   list-style-type: none;
@@ -61,14 +61,12 @@ ul {
 }
 
 
-button {
+/* button {
   padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
   background-color: #4caf50;
   color: #fff;
   cursor: pointer;
-}
+} */
 
 button:disabled {
   /* background-color: #ddd; */

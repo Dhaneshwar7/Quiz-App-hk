@@ -29,7 +29,7 @@ export default function Home() {
 	const { state } = useQuiz();
 	const { quizQuestions, score, showResult, timeLeft, reviewTestFeedback } =
 		state;
-		console.log(score);
+	// console.log(score);
 
 	return (
 		<>
@@ -44,11 +44,7 @@ export default function Home() {
 							justifyContent: 'space-between',
 						}}
 					>
-						{reviewTestFeedback ? (
-							<p> Your Result Score: {score}</p>
-						) : (
-							<p></p>
-						)}
+						{reviewTestFeedback ? <p> Your Result Score: {score}</p> : <p></p>}
 
 						<Timer />
 					</div>

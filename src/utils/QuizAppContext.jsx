@@ -1,5 +1,4 @@
 'use client';
-// QuizContext.js
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 
 const QuizContext = createContext();

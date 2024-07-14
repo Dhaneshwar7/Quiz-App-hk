@@ -6,9 +6,9 @@ const Timer = () => {
 	const { timeLeft } = state;
 	return (
 		<div className="Timer">
-			<div className="bg-blue-300 py-3 px-4 rounded-md">
-				<span className="text-blue-900 mr-2">Time Left</span>
-				<span className="bg-gray-700 py-1 px-3 text-white rounded-sm">
+			<div className="bg-blue-300 py-3 px-4  max-sm:py-2 rounded-md">
+				<span className="text-blue-900 mr-2 max-sm:text-base">Time Left</span>
+				<span className="bg-gray-700 py-1 px-3 text-white max-sm:text-base rounded-sm">
 					{timeLeft}
 				</span>
 			</div>

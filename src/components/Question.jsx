@@ -21,7 +21,7 @@ const Question = () => {
 
 	return (
 		<div className="Question py-7">
-			<h2 className="text-xl py-1 mb-2 font-medium">
+			<h2 className="text-xl max-sm:text-lg py-1 mb-2 font-medium">
 				{currentQuestionIndex + 1} : {question.question}
 			</h2>
 			<ul className="mb-8">
@@ -48,7 +48,7 @@ const Question = () => {
 				))}
 			</ul>
 			<hr className="border-stone-950/40 border" />
-			<p className="text-xl m-2 ">
+			<p className="text-xl max-sm:text-lg m-2 ">
 				{count.currentQuesNum} of {quizQuestions.length} Questions
 			</p>
 			<div className="Navigation-buttons flex items-center justify-between">
@@ -108,7 +108,7 @@ const Question = () => {
 				''
 			) : (
 				<div
-					class="flex items-center w-fit  p-4 m-auto mt-4 text-sm text-red-800 border border-red-300 rounded-lg bg-gray-400 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+					class="flex items-center w-fit max-sm:p-2  p-4 m-auto mt-4 text-sm text-red-800 border border-red-300 rounded-lg bg-gray-400 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
 					role="alert"
 				>
 					<svg
@@ -122,7 +122,7 @@ const Question = () => {
 					</svg>
 					<span class="sr-only">Info</span>
 					<div>
-						<span class="font-medium">
+						<span class="font-medium max-sm:text-xs text-center ">
 							Your Remaining Question ``{count.remainingQues}`` | Attemp All &
 							Then Submit.
 						</span>

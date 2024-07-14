@@ -1,21 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useQuiz } from '@/utils/QuizAppContext';
 
-const Question = ({
-	question,
-	count,
-	totalquestion,
-	submitQuiz,
-	selectedOption,
-	setSelectedOption,
-	goToNextQuestion,
-	goToPreviousQuestion,
-	reviewTestFeedback,
-}) => {
+
+const Question = () => {
+	const { state, dispatch } = useQuiz();
+	const { quizQuestions, currentQuestionIndex, count, selectedOptions,reviewTestFeedback } = state;
+
+	const question = quizQuestions[currentQuestionIndex];
+	const selectedOption = selectedOptions[currentQuestionIndex];
+
 	const handleOptionClick = option => {
-		setSelectedOption(option);
+		dispatch({ type: 'SET_SELECTED_OPTION', payload: option });
 	};
-	console.log(` ya i ${count.currentQuesNum}`);
-	console.log(reviewTestFeedback);
 
 	return (
 		<div className="question">
@@ -44,24 +40,27 @@ const Question = ({
 				))}
 			</ul>
 			<p>
-				{count.currentQuesNum} out of {totalquestion}
+				{count.currentQuesNum} out of {quizQuestions.length}
 			</p>
-
 			<div className="navigation-buttons">
-				<button onClick={goToPreviousQuestion}>Previous Question</button>
-				{count.currentQuesNum === totalquestion ? (
+				<button onClick={() => dispatch({ type: 'GO_TO_PREVIOUS_QUESTION' })}>
+					Previous Question
+				</button>
+				{count.currentQuesNum === quizQuestions.length ? (
 					reviewTestFeedback ? (
 						<button onClick={() => window.location.reload()}>
 							Restart Quiz
 						</button>
 					) : (
-						<button onClick={submitQuiz}>Submit the Quiz</button>
+						<button onClick={()=>dispatch({type:'SUBMIT_QUIZ'})}>Submit the Quiz</button>
 					)
 				) : (
-					<button onClick={goToNextQuestion}>Next Question</button>
+					<button onClick={() => dispatch({ type: 'GO_TO_NEXT_QUESTION' })}>
+						Next Question
+					</button>
 				)}
 			</div>
-			<p>YOUr REmaining question : {count.remainingQues}</p>
+			<p>YOUR Remaining question: {count.remainingQues}</p>
 		</div>
 	);
 };
